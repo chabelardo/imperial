@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Combinado</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/5018/5018546.png" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom, #560ea2, #c78dc7, #f496a6);  
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-y: auto;
+        }
+
+        .main-container {
+            display: flex;
+            flex-wrap: wrap;
+            width: 95%;
+            max-width: 1600px;
+            gap: 20px;
+        }
+
+        .form-container {
+            flex: 1;
+            max-width: 600px;
+            background: #ffffff67;
+            padding: 30px 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h1 {
+            color: #333;
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #361616;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        textarea {
+            height: 100px;
+            resize: none;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            background-color: #2e14ed;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #1630d3;
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .button-group label {
+            flex: 1 1 calc(33.33% - 10px);
+            text-align: center;
+            padding: 10px;
+            background: #ddd;
+            color: #333;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button-group input[type="radio"] {
+            display: none;
+        }
+
+        .button-group input[type="radio"]:checked + label {
+            background: #2e14ed;
+            color: #fff;
+        }
+
+        .dashboard-container {
+            flex: 2;
+            background: #ffffff67;
+            padding: 30px 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .metrics-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .metric-box {
+            background: #ffffff90;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            flex: 1 1 calc(33.333% - 20px);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .metric-value {
+            font-size: 45px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .metric-label {
+            font-size: 18px;
+            color: #666;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="form-container">
+            <h1>Formulario Conectado</h1>
+            <form id="googleSheetForm">
+                <div class="form-group">
+                    <label for="nombre">Nombre del Paciente:</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Escribe el nombre" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Laboratorio:</label>
+                    <div class="button-group">
+                        <input type="radio" id="shamir" name="laboratorio" value="Shamir" required>
+                        <label for="shamir">Shamir</label>
+
+                        <input type="radio" id="tecnolab" name="laboratorio" value="TecnoLab">
+                        <label for="tecnolab">TecnoLab</label>
+
+                        <input type="radio" id="exa" name="laboratorio" value="EXA">
+                        <label for="exa">EXA</label>
+
+                        <input type="radio" id="imperial" name="laboratorio" value="Imperial">
+                        <label for="imperial">Imperial</label>
+
+                        <input type="radio" id="augen" name="laboratorio" value="Augen">
+                        <label for="augen">Augen</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="tratamiento">Tratamiento:</label>
+                    <select id="tratamiento" name="tratamiento">
+                        <option value="" disabled selected>Seleccione un tratamiento</option>
+                    </select>
+                    <div style="display: flex; gap: 10px; margin-top: 10px;">
+                        <input type="number" name="tratamientoCosto" placeholder="Costo" step="0.01">
+                        <input type="number" name="tratamientoPrecio" placeholder="Precio" step="0.01">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="armazon">Armazón:</label>
+                    <input type="text" id="armazon" name="armazon" placeholder="Escribe el armazón">
+                    <div style="display: flex; gap: 10px; margin-top: 10px;">
+                        <input type="number" name="armazonCosto" placeholder="Costo" step="0.01">
+                        <input type="number" name="armazonPrecio" placeholder="Precio" step="0.01">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="solar" name="solar">
+                        Armazón solar
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Enviar">
+                </div>
+            </form>
+        </div>
+
+        <div class="dashboard-container">
+            <h1>Métricas Relevantes</h1>
+            <div class="metrics-container">
+                <div class="metric-box">
+                    <div class="metric-value">120</div>
+                    <div class="metric-label">Pacientes Atendidos</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-value">$15,000</div>
+                    <div class="metric-label">Ingresos Totales</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-value">95%</div>
+                    <div class="metric-label">Satisfacción</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbz3OO8x7HbYF8Ad-bmIPFjH9VEa4EU1TzThm5fSth2t5JEjBFPqs2Yc9GYAoHdQQWP-Ww/exec'; // Reemplaza con tu URL del script de Apps Script
+
+        // Agregar eventos para cargar tratamientos según el laboratorio seleccionado
+        document.querySelectorAll('input[name="laboratorio"]').forEach(input => {
+            input.addEventListener('change', () => {
+                fetchTreatments(input.value);
+            });
+        });
+
+async function fetchTreatments(laboratorio) {
+    try {
+        const response = await fetch(`${scriptURL}?laboratorio=${laboratorio}`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const jsonData = await response.json();
+
+        const tratamientoSelect = document.getElementById('tratamiento');
+        tratamientoSelect.innerHTML = '<option value="" disabled selected>Seleccione un tratamiento</option>';
+        
+        jsonData.forEach(item => {
+            const option = document.createElement('option');
+            option.value = item.tratamiento;
+            option.textContent = `${item.tratamiento} - $${item.precio}`;
+            option.dataset.costo = item.costo;
+            option.dataset.precio = item.precio;
+            tratamientoSelect.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Error al cargar tratamientos:', error);
+        alert('Error al cargar los tratamientos. Por favor, intente nuevamente.');
+    }
+}
+
+
+
+
+
+
+        document.getElementById('googleSheetForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+            data.solar = data.solar === 'on'; // Convertir checkbox a booleano
+
+            try {
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: { 'Content-Type': 'application/json' },
+                });
+                const result = await response.json();
+                alert(result.message);
+            } catch (error) {
+                console.error('Error al enviar los datos:', error);
+                alert('Hubo un error al enviar los datos.');
+            }
+        });
+    </script>
+</body>
+</html>
